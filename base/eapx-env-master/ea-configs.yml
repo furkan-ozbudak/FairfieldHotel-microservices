@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ea-configs
+data:
+  ea-client-port: '80'
+  ea-gateway-port: '8080'
+  ea-hellosb-port: '8081'
+  ea-user-port: '8082'
+  ea-product-port: '8083'
+  ea-order-port: '8084'
+  ea-cart-port: '8085'
+  ea-auth-port: '9999'
+  ea-redis-port: '6379'
+  ea-mysql-port: '3306'
+  ea-mysql-db: 'ea_skeleton'
+  ea-mysql-user: 'root'
+  ea-mysql-host: 'ea-mysql-service'

@@ -1,0 +1,9 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  data:
+    mongodb:
+      database: room
+      host: mongodb-service-mongodb-replicaset
+      port: 27017

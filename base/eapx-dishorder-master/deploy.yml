@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderdish
+  labels:
+    app: orderdish
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: orderdish
+      labels:
+        app: orderdish
+    spec:
+      containers:
+        - name: orderdish
+          image: eaprojectsx/orderdish
+          ports:
+            - containerPort: 8092
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ea-secrets
+                  key: apikey
+            - name: "PORT"
+              value: "8092"
+            - name: "DATABASE_HOST"
+              value: "mysql-service"
+            - name: "DATABASE_PORT"
+              value: "3306"
+  selector:
+    matchLabels:
+      app: orderdish
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderdish-service
+spec:
+  selector:
+    app: orderdish
+#  ports:
+#    - port: 8092
+#      targetPort: 8092
+#  type: ClusterIP
+
+  ports:
+    - port: 8092
+      targetPort: 8092
+      nodePort: 30092
+  type: NodePort

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eapx-mail-deployment
+  labels:
+    app: eapx-mail
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eapx-mail
+  template:
+    metadata:
+      labels:
+        app: eapx-mail
+    spec:
+      containers:
+      - name: eapx-mail
+        image: eaprojectsx/eapx-mail
+        env:
+          - name: MQ_HOST
+            value: 'rabbitmq-service-rabbitmq-ha'
+          - name: MQ_PORT
+            value: '5672'
+          - name: MQ_USER
+            value: 'guest'
+          - name: MQ_PSWD
+            value: 'StZfT4AM18Id0S9wDEGCiG28'
+
+---
+apiVersion: v1                  # API version
+kind: Service                   # Type of kubernetes resource
+metadata:
+  name: eapx-mail-service      # Name of the kubernetes resource
+spec:
+  type: ClusterIP                # Exposes the service by opening a port on each node
+  selector:
+    app: eapx-mail                         # Forward incoming connections on port 80 to the target port 80 in the Pod
+  ports:                        # Forward incoming connections on port 80 to the target port 80 in the Pod
+    - name: http
+      port: 37292
+      targetPort: 37292

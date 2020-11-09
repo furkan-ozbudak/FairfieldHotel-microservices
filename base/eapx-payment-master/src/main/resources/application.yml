@@ -1,0 +1,36 @@
+server:
+  port: 10005
+
+paypalUrl: http://localhost:10006/paypal
+bankUrl: http://localhost:10007/bank
+creditUrl: http://localhost:10008/credit
+updateReservationUrl: http://localhost:9900/reservation/up
+api:
+  key: ea-max-secret
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+  data:
+    mongodb:
+      database: payment
+      host: localhost
+      port: 27017
+  cloud:
+    stream:
+      bindings:
+        mail:
+          destination: mail-topic
+          exchangeType: topic
+      rabbit:
+        bindings:
+          mail:
+            producer:
+              exchangeType: topic
+              routing-key-expression: '''eapx.mail'''
+
+

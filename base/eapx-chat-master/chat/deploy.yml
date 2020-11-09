@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ea-chat-deployment
+  labels:
+    app: ea-chat
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ea-chat
+  template:
+    metadata:
+      labels:
+        app: ea-chat
+    spec:
+      containers:
+        - name: ea-chat
+          image: eaprojectsx/eapx-chat
+          ports:
+            - containerPort: 10086
+          env:
+            - name: DB_HOST
+              value: 'mongodb-service-mongodb-replicaset'
+            - name: DB_PORT
+              value: '27017'
+            - name: DB_NAME
+              value: 'user'
+            - name: JWT_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: ea-secrets
+                    key: jwtkey
+            - name: API_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: ea-secrets
+                    key: apikey
+---
+apiVersion: v1                  # API version
+kind: Service                   # Type of kubernetes resource
+metadata:
+  name: ea-chat-service      # Name of the kubernetes resource
+spec:
+  type: NodePort              # Exposes the service by opening a port on each node
+  selector:
+    app: ea-chat
+  ports:                        # Forward incoming connections on port 80 to the target port 80 in the Pod
+    - name: http
+      nodePort: 30086
+      port: 10086 # Pod+Port
+      targetPort: 10086 # Cluster IP or Service Name

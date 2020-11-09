@@ -1,0 +1,15 @@
+server:
+  port: 9990
+spring:
+  data:
+    mongodb:
+      database: admin
+      host: mongodb-service-mongodb-replicaset
+      port: 27017
+
+room:
+#  check-room-available: http://localhost:8080/room/checkRoomIfAvailable
+  room-reserve: http://localhost:8082/room/reserve
+  room-cancel: http://localhost:8082/room/cancelReservation
+
+

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eapx-paypal
+  labels:
+    app: eapx-paypal
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: eapx-paypal
+      labels:
+        app: eapx-paypal
+    spec:
+      containers:
+        - name: eapx-paypal
+          image: eaprojectsx/eapx-paypal
+          ports:
+            - containerPort: 10006
+          env:
+            - name: "PORT"
+              value: "10006"
+  selector:
+    matchLabels:
+      app: eapx-paypal
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eapx-paypal-service
+spec:
+  selector:
+    app: eapx-paypal
+  ports:
+    - port: 10006
+      targetPort: 10006
+      nodePort: 30008
+  type: NodePort
+

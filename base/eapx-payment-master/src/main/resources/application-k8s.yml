@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:10005}
+
+paypalUrl: http://eapx-paypal-service:10006/paypal
+bankUrl: http://eapx-paypal-service:10007/bank
+creditUrl: http://eapx-paypal-service:10008/credit
+updateReservationUrl: http://eapx-reservation-service:10009/reservation/other
+api:
+  key: ea-max-secret
+spring:
+  rabbitmq:
+    host: rabbitmq-service-rabbitmq-ha
+    port: 5672
+    username: guest
+    password: StZfT4AM18Id0S9wDEGCiG28
+
+
+
+  data:
+    mongodb:
+      database: payment
+      host: mongodb-service-mongodb-replicaset
+      port: 27017
+  cloud:
+    stream:
+      bindings:
+        mail:
+          destination: mail-topic
+          exchangeType: topic
+      rabbit:
+        bindings:
+          mail:
+            producer:
+              exchangeType: topic
+              routing-key-expression: '''eapx.mail'''
+
+
+
+

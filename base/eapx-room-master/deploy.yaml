@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eapx-room
+  labels:
+    app: eapx-room
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: eapx-room
+      labels:
+        app: eapx-room
+    spec:
+      containers:
+        - name: eapx-room
+          image: eaprojectsx/eapx-room
+          ports:
+            - containerPort: 8082
+          env:
+            - name: "PORT"
+              value: "8082"
+  selector:
+    matchLabels:
+      app: eapx-room
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eapx-room-service
+spec:
+  selector:
+    app: eapx-room
+  ports:
+    - port: 8082
+      targetPort: 8082
+      nodePort: 30006
+  type: NodePort

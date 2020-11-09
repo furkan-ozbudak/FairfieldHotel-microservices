@@ -1,0 +1,31 @@
+spring:
+#  jpa:
+#    database: mysql
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/mysql?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: root
+
+  data:
+    mongodb:
+      database: dish
+      port: 27017
+      host: mongodb-service-mongodb-replicaset
+
+router:
+  dish:
+    url: http://foodordering-service:8091
+  order:
+    url: http://orderdish-service:8092
+
+api:
+  key: ${API-KEY}
+
+server:
+  port: 8091

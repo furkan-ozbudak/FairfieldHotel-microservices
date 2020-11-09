@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eapx-payment
+  labels:
+    app: eapx-payment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: eapx-payment
+      labels:
+        app: eapx-payment
+    spec:
+      containers:
+        - name: eapx-payment
+          image: eaprojectsx/eapx-payment
+          ports:
+            - containerPort: 10005
+          env:
+            - name: "PORT"
+              value: "10005"
+  selector:
+    matchLabels:
+      app: eapx-payment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eapx-payment-service
+spec:
+  selector:
+    app: eapx-payment
+  ports:
+    - port: 10005
+      targetPort: 10005
+      nodePort: 30007
+  type: NodePort

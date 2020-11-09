@@ -1,0 +1,30 @@
+excludeUrls: /user/login,/user/register,/chat/gen,/chat/on,/api/dish,/api/orderdish,/api/room/,/api/reservation/,/api/payment/
+authUrl: http://ea-auth-service:9999
+
+zuul:
+  routes:
+    hello:
+      path: /api/hello/**
+      url: http://eapx-hellosb-eapx-hellosb-chart:8081/hello/
+    user:
+      path: /api/user/**
+      url: http://ea-user-service:8082/user/
+    chat:
+      path: /api/chat/**
+      url: http://ea-chat-service:10086/chat/
+    dish:
+      path: /api/dish/**
+      url: http://foodordering-service:8091
+    orderdish:
+      path: /api/orderdish/**
+      url: http://orderdish-service:8092
+    room:
+      path: /api/room/**
+      url: http://eapx-room-service:8082/room/
+    reservation:
+      path: /api/reservation/**
+      url: http://eapx-reservation-service:10009/reservation
+    payment:
+      path: /api/payment/**
+      url: http://eapx-payment-service:10005/payment
+      

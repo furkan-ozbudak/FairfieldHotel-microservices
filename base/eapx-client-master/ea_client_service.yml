@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ea-client-deployment
+  labels:
+    app: ea-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ea-client
+  template:
+    metadata:
+      labels:
+        app: ea-client
+    spec:
+      containers:
+      - name: ea-client
+        image: eaprojectsx/ea_client_simple
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1                  # API version
+kind: Service                   # Type of kubernetes resource
+metadata:
+  name: ea-client-service      # Name of the kubernetes resource
+spec:
+  type: NodePort                # Exposes the service by opening a port on each node
+  selector:
+    app: ea-client                          # Forward incoming connections on port 80 to the target port 80 in the Pod
+  ports:
+    # Three types of ports for a service
+    # nodePort - a static port assigned on each the node
+    # port - port exposed internally in the cluster
+    # targetPort - the container port to send requests to
+    - nodePort: 30000
+      port: 80 
+      targetPort: 80

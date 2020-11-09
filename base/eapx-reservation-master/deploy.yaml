@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eapx-reservation
+  labels:
+    app: eapx-reservation
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: eapx-reservation
+      labels:
+        app: eapx-reservation
+    spec:
+      containers:
+        - name: eapx-reservation
+          image: eaprojectsx/eapx-reservation
+          ports:
+            - containerPort: 10009
+          env:
+            - name: "PORT"
+              value: "10009"
+  selector:
+    matchLabels:
+      app: eapx-reservation
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eapx-reservation-service
+spec:
+  selector:
+    app: eapx-reservation
+  ports:
+    - port: 10009
+      targetPort: 10009
+      nodePort: 30005
+  type: NodePort

@@ -1,0 +1,363 @@
+{
+	"info": {
+		"_postman_id": "fe70a042-2938-465c-84ff-c2bd98b1c436",
+		"name": "Hotel System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all rooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/room/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roomType\" : {\"name\" : \"suit\"},\n\t\"bedList\" : [{\"name\" : \"king\"}, {\"name\" : \"queen\"}],\n\t\"reservedDateList\" : [\"2015-12-05\", \"2019-02-05\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "5dd01c2386aefc2881584e10",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5dd01d1c86aefc2881584e11\",\n\t\"roomType\": {\"name\" : \"updatedRoomType\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a room",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/findRoom?id=5dd01d1c86aefc2881584e11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"findRoom"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5dd01d1c86aefc2881584e11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reserve a room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"5dd01d1c86aefc2881584e11\",\n\t\"reservationDate\" : \"2018-07-07\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/reserve",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find available rooms for given date",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/roomsWithDate?date=2018-11-30",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"roomsWithDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2018-11-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find available rooms for given date and room type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/room/roomsWithDateAndType?date=2015-12-06&roomType=Suite",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"roomsWithDateAndType"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2015-12-06"
+						},
+						{
+							"key": "roomType",
+							"value": "Suite"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check room if available",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/room/checkRoomIfAvailable?id=5dd025c45179f66d97ab6fc7&date=2011-02-05",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"checkRoomIfAvailable"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5dd025c45179f66d97ab6fc7"
+						},
+						{
+							"key": "date",
+							"value": "2011-02-05"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel reservation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\"id\" : \"5dd025c45179f66d97ab6fc7\",\n\t\"date\": \"2011-02-05\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/room/cancelReservation/?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"room",
+						"cancelReservation",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5dd025c45179f66d97ab6fc7",
+							"disabled": true
+						},
+						{
+							"key": "date",
+							"value": "2011-02-05",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

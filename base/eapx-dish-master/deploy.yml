@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodordering
+  labels:
+    app: foodordering
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: foodordering
+      labels:
+        app: foodordering
+    spec:
+      containers:
+        - name: foodordering
+          image: eaprojectsx/foodordering
+          ports:
+            - containerPort: 8091
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ea-secrets
+                  key: apikey
+            - name: "PORT"
+              value: "8091"
+            - name: "DATABASE_HOST"
+              value: "mysql-service"
+            - name: "DATABASE_PORT"
+              value: "3306"
+  selector:
+    matchLabels:
+      app: foodordering
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodordering-service
+spec:
+  selector:
+    app: foodordering
+#  ports:
+#    - port: 8091
+#      targetPort: 8091
+#  type: ClusterIP
+
+  ports:
+    - port: 8091
+      targetPort: 8091
+      nodePort: 30091
+  type: NodePort

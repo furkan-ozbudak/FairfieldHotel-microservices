@@ -1,0 +1,15 @@
+excludeUrls: /user/login,/user/register
+authUrl: http://localhost:9999
+
+zuul:
+  routes:
+    hello:
+      path: /api/hello/**
+      url: http://localhost:8081/hello/
+    user:
+      path: /api/user/**
+      url: http://localhost:8082/user/
+    chat:
+      path: /api/chat/**
+      url: http://localhost:10086/chat/
+
